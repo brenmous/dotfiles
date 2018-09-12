@@ -12,7 +12,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " YouCompleteMe... this takes some external effort (see ./ubu-install)
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 
 " nerdtree
 Plugin 'scrooloose/nerdtree'
