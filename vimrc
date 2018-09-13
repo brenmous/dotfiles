@@ -84,17 +84,6 @@ set softtabstop=4
 "-------------------------------------------------------------------------------
 " navigation
 "-------------------------------------------------------------------------------
-" Disable Arrow keys in Escape mode
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-
-" Disable Arrow keys in Insert mode
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
-imap <right> <nop>
 
 "-------------------------------------------------------------------------------
 " stuff for syntastic
@@ -164,13 +153,13 @@ function! <SID>StripTrailingWhitespaces()
 endfun
 autocmd BufWritePre *.tex,*.bib,*.ts,*.js,*.json,*.py,*.c,*.cpp,*.h,*.hpp,.gitignore,.vimrc,*.R,*.md :call <SID>StripTrailingWhitespaces()
 
-colorscheme industry
+" colorscheme
 
 "-------------------------------------------------------------------------------
 " colors
 "-------------------------------------------------------------------------------
 " columns at 81 and 101 chracters
-set colorcolumn=81,101
+set colorcolumn=80, 100
 hi ColorColumn ctermbg=DarkYellow
 
 " hilight matching words in search

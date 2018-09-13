@@ -21,8 +21,8 @@ ln -s "$curdir"/bash_aliases .bash_aliases # ensure that .bashrc loads this
 cd "$curdir"
 
 # configure git
-git config --global user.name "Simon Knapp"
-git config --global user.email "sleepingwell@gmail.com"
+git config --global user.name "Bren Moushall"
+git config --global user.email "bmoush@gmail.com"
 git confit --global push.default simple
 
 # get pip
