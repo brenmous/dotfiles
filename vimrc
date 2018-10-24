@@ -12,7 +12,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " YouCompleteMe... this takes some external effort (see ./ubu-install)
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 
 " nerdtree
 Plugin 'scrooloose/nerdtree'
@@ -158,9 +158,11 @@ autocmd BufWritePre *.tex,*.bib,*.ts,*.js,*.json,*.py,*.c,*.cpp,*.h,*.hpp,.gitig
 "-------------------------------------------------------------------------------
 " colors
 "-------------------------------------------------------------------------------
-" columns at 81 and 101 chracters
-set colorcolumn=80, 100
-hi ColorColumn ctermbg=DarkYellow
+hi ColorColumn ctermbg=White
+" columns at 80
+set colorcolumn=80
+" highlights chars in col 80 and beyond
+"call matchadd('ColorColumn', '\%>79v.\+')
 
 " hilight matching words in search
 set hlsearch
