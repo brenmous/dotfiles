@@ -23,18 +23,6 @@ Plugin 'jistr/vim-nerdtree-tabs'
 " syntastic
 Plugin 'scrooloose/syntastic'
 
-" Nvim-R
-"Plugin 'jalvesaq/Nvim-R'
-
-" tsuquyomi (for typescript)
-Plugin 'Quramy/tsuquyomi'
-
-" for typescript syntax highlighting
-Plugin 'leafgarland/typescript-vim'
-
-" required for tsuquyomi
-Plugin 'Shougo/vimproc'
-
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -60,6 +48,8 @@ Plugin 'Shougo/vimproc'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+syntax on
+
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
@@ -80,6 +70,9 @@ set number
 set expandtab
 set shiftwidth=4
 set softtabstop=4
+
+" indent spacing for specific filetypes
+autocmd FileType tf setlocal shiftwidth=2|setlocal softtabstop=2
 
 "-------------------------------------------------------------------------------
 " navigation
