@@ -23,6 +23,9 @@ Plugin 'jistr/vim-nerdtree-tabs'
 " syntastic
 Plugin 'scrooloose/syntastic'
 
+" vim-scala
+Plugin 'derekwyatt/vim-scala'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -48,7 +51,6 @@ Plugin 'scrooloose/syntastic'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-syntax on
 
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -63,16 +65,12 @@ syntax on
 " Put your non-Plugin stuff after this line
 "---------------------------end Vundle----------------------------------
 
-filetype on
 set number
 
 " tabs as four spaces
 set expandtab
 set shiftwidth=4
 set softtabstop=4
-
-" indent spacing for specific filetypes
-autocmd FileType tf setlocal shiftwidth=2|setlocal softtabstop=2
 
 "-------------------------------------------------------------------------------
 " navigation
@@ -94,12 +92,6 @@ let g:syntastic_check_on_wq = 0
 " syntastic pylint
 let g:syntastic_python_checkers=['pylint']
 let g:syntastic_python_pylint_args='--disable=C0103,C0111,C0113'
-
-" syntastic for typescript
-let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
-let g:syntastic_typescript_tsc_fname = ''
-
 ""-------------------------------------------------------------------------------
 "" stuff for YCM
 ""-------------------------------------------------------------------------------
