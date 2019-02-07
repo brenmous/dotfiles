@@ -12,6 +12,7 @@ cd ~
 ln -s "$curdir"/vimrc .vimrc
 ln -s "$curdir"/tmux.conf .tmux.conf
 ln -s "$curdir"/bash_aliases .bash_aliases # ensure that .bashrc loads this
+ln -s "$curdir"/bashrc .bashrc
 cd "$curdir"
 
 # configure git
