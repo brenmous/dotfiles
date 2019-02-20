@@ -1,7 +1,17 @@
 #!/bin/bash
 
+sudo yum -y install epel-release
 sudo yum -y update
 sudo yum -y install tmux vim
+sudo yum -y install python-pip
+sudo yum -y install zip
+sudo yum -y install unzip
+
+# install terraform
+sudo curl -L https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip \
+        -o /usr/tmp/terraform.zip
+sudo unzip /usr/tmp/terraform -d /usr/bin
+sudo rm /usr/tmp/terraform.zip
 
 # install Vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -12,10 +22,12 @@ cd ~
 ln -s "$curdir"/vimrc .vimrc
 ln -s "$curdir"/tmux.conf .tmux.conf
 ln -s "$curdir"/bash_aliases .bash_aliases # ensure that .bashrc loads this
-ln -s "$curdir"/bashrc .bashrc
+ln -fs "$curdir"/bashrc .bashrc
 cd "$curdir"
 
 # configure git
 git config --global user.name "Bren Moushall"
 git config --global user.email "bmoush@gmail.com"
 git config --global push.default simple
+git config --global color.ui auto
+. /etc/bash_completion.d/git
