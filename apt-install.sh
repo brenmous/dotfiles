@@ -1,30 +1,28 @@
 #!/bin/bash
 
+sudo add-apt-repository ppa:jonathonf/vim
 sudo apt-get update
 
 sudo apt-get install -y \
     tmux \
-    git git-gui \
-    python-dev python-examples ipython \
-    tree \
-    evince
+    git \
+    vim
 
-# install Vundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+mkdir -p ~/.vim/pack/plugins/start
+# Plugins
+git clone https://github.com/w0rp/ale.git ~/.vim/pack/plugins/start/ale
+git clone https://github.com/rust-lang/rust.vim ~/.vim/pack/plugins/start/rust.vim
 
 # link to the dot files
 curdir=`pwd`
 cd ~
-ln -s "$curdir"/vimrc .vimrc
+ln -s "$curdir"/vim8/vimrc .vimrc
 ln -s "$curdir"/tmux.conf .tmux.conf
 ln -s "$curdir"/bash_aliases .bash_aliases # ensure that .bashrc loads this
+ln -s "$curdir"/bashrc .bashrc
 cd "$curdir"
 
 # configure git
 git config --global user.name "Bren Moushall"
 git config --global user.email "bmoush@gmail.com"
-git confit --global push.default simple
-
-# get pip
-wget https://bootstrap.pypa.io/get-pip.py
-sudo python get-pip.py
+git config --global push.default simple
