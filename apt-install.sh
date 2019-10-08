@@ -18,10 +18,10 @@ git clone https://github.com/w0rp/ale.git ~/.vim/pack/plugins/start/ale
 # link to the dot files
 curdir=`pwd`
 cd ~
-ln -s "$curdir"/vim8/vimrc .vimrc
-ln -s "$curdir"/tmux.conf .tmux.conf
-ln -s "$curdir"/bash_aliases .bash_aliases # ensure that .bashrc loads this
-ln -s "$curdir"/bashrc .bashrc
+ln -sf "$curdir"/vim8/vimrc .vimrc
+ln -sf "$curdir"/tmux.conf .tmux.conf
+ln -sf "$curdir"/bash_aliases .bash_aliases # ensure that .bashrc loads this
+ln -sf "$curdir"/bashrc .bashrc
 cd "$curdir"
 
 # configure git
