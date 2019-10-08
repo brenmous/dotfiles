@@ -25,5 +25,3 @@ export PS1='\[\033[0;32m\]\[\033[0m\033[1;32m\]\u:\[\033[0;35m\]\w\[\033[0;35m\]
 #export DETCAP_FDSN_URL=http://localhost:8081
 #export DETCAP_LOG_LEVEL=DEBUG
 #export QUAKELINK_HOST_NAME=localhost
-
-export PATH=$PATH:'/usr/local/bin'
