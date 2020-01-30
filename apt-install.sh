@@ -32,3 +32,4 @@ git config --global push.default simple
 # install Python3.7
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt install python3.7
+sudo apt install python3.7-venv
