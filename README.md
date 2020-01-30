@@ -1,3 +1,3 @@
 # mydotfiles
 
-I stole Simon's dotfiles.
+Dotfiles and scripts

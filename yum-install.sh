@@ -42,8 +42,8 @@ git clone https://github.com/w0rp/ale.git ~/.vim/pack/plugins/start/ale
 #git clone https://github.com/rust-lang/rust.vim ~/.vim/pack/plugins/start/rust.vim
 
 # link to the dot files
-ln -fs "$curdir"/vim8/vimrc ~/.vimrc
-ln -fs "$curdir"/tmux.conf ~/.tmux.conf
-ln -fs "$curdir"/bash_aliases ~/.bash_aliases # ensure that .bashrc loads this
-ln -fs "$curdir"/bashrc ~/.bashrc
+ln -nfs "$curdir"/vim8/vimrc ~/.vimrc
+ln -nfs "$curdir"/tmux.conf ~/.tmux.conf
+ln -nfs "$curdir"/bash_aliases ~/.bash_aliases # ensure that .bashrc loads this
+ln -nfs "$curdir"/bashrc ~/.bashrc
 
