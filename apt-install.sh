@@ -1,17 +1,19 @@
 #!/bin/bash
 
-sudo add-apt-repository ppa:jonathonf/vim
-sudo apt-get update
+sudo apt-get update -y
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo add-apt-repository ppa:jonathonf/vim -y
 
 sudo apt-get install -y \
     tmux \
     git \
-    vim
+    vim \
+    python3.7
 
 mkdir -p ~/.vim/pack/plugins/start
 # Plugins
 git clone https://github.com/w0rp/ale.git ~/.vim/pack/plugins/start/ale
-git clone https://github.com/rust-lang/rust.vim ~/.vim/pack/plugins/start/rust.vim
+# git clone https://github.com/rust-lang/rust.vim ~/.vim/pack/plugins/start/rust.vim
 
 # link to the dot files
 curdir=`pwd`
