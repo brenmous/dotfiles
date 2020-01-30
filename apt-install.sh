@@ -16,10 +16,10 @@ git clone https://github.com/rust-lang/rust.vim ~/.vim/pack/plugins/start/rust.v
 # link to the dot files
 curdir=`pwd`
 cd ~
-ln -s "$curdir"/vim8/vimrc .vimrc
-ln -s "$curdir"/tmux.conf .tmux.conf
-ln -s "$curdir"/bash_aliases .bash_aliases # ensure that .bashrc loads this
-ln -s "$curdir"/bashrc .bashrc
+ln -sfn "$curdir"/vim8/vimrc .vimrc
+ln -sfn "$curdir"/tmux.conf .tmux.conf
+ln -sfn "$curdir"/bash_aliases .bash_aliases # ensure that .bashrc loads this
+ln -sfn "$curdir"/bashrc .bashrc
 cd "$curdir"
 
 # configure git
