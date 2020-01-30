@@ -28,3 +28,7 @@ cd "$curdir"
 git config --global user.name "Bren Moushall"
 git config --global user.email "bmoush@gmail.com"
 git config --global push.default simple
+
+# install Python3.7
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt install python3.7
