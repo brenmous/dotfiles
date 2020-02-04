@@ -17,7 +17,7 @@ export PS1='\[\033[0;32m\]\[\033[0m\033[1;32m\]\u:\[\033[0;35m\]\w\[\033[0;35m\]
 export PATH=$PATH:'/usr/local/bin'
 
 # Editor preference
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 # MTPy dev vars
