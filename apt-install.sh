@@ -10,9 +10,19 @@ sudo apt-get install -y \
     vim \
     python3.7
 
+# Install node.js
+curl -L install-node.now.sh/lts -o /tmp/install-node.sh
+chmod u+rwx /tmp/install-node.sh
+sudo /tmp/install-node.sh -y
+
 mkdir -p ~/.vim/pack/plugins/start
 # Plugins
+# Linting engine
 git clone https://github.com/w0rp/ale.git ~/.vim/pack/plugins/start/ale
+# Autocomplete
+curl --L https://github.com/neoclide/coc.nvim/archive/release.tar.gz \
+    | tar xzfv - -C ~/.vim/pack/plugins/start/ # Requires node.js
+# Rust linter
 # git clone https://github.com/rust-lang/rust.vim ~/.vim/pack/plugins/start/rust.vim
 
 # link to the dot files
