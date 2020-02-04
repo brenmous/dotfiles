@@ -11,11 +11,19 @@ fi
 # User specific aliases and functions
 
 # Activate _git_ps1
-. /usr/share/git-core/contrib/completion/git-prompt.sh
-
+. /etc/bash_completion.d/git-prompt
 export PS1='\[\033[0;32m\]\[\033[0m\033[1;32m\]\u:\[\033[0;35m\]\w\[\033[0;35m\]$(__git_ps1)\n\[\033[0;32m\]\[\033[0m\033[0;32m\] \$\[\033[0m\033[0;37m\] '
 
 export PATH=$PATH:'/usr/local/bin'
+
+# Editor preference
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+# MTPy dev vars
+export GDAL_DATA=/usr/share/gdal/2.2
+export CPLUS_INCLUDE_PATH=/usr/include/gdal
+export C_INCLUDE_PATH=/usr/include/gdal
 
 # Detcap dev vars
 #export PROC_HOST_NAME=localhost
