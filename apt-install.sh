@@ -1,29 +1,52 @@
 #!/bin/bash
 
+# apt
 sudo apt-get update -y
+sudo add-apt-repository ppa:neovim-ppa/stable -y
 sudo add-apt-repository ppa:deadsnakes/ppa -y
-sudo add-apt-repository ppa:jonathonf/vim -y
 
 sudo apt-get install -y \
     tmux \
+    neovim \
     git \
-    vim \
-    python3.7
+    python3.7 \
+    python3.7-venv \
+    python3.7-dev \
+    python3-pip
 
-# Install node.js
-curl -L install-node.now.sh/lts -o /tmp/install-node.sh
-chmod u+rwx /tmp/install-node.sh
+python3.7 -m pip install pip -y
+pip install virtualenv
+
+# Need to add node.js for coc.nvim
+curl -L node-install.now.sh -o /tmp/install-node.sh 
+chmod u+rw /tmp/install-node.sh
 sudo /tmp/install-node.sh -y
 
-mkdir -p ~/.vim/pack/plugins/start
-# Plugins
-# Linting engine
-git clone https://github.com/w0rp/ale.git ~/.vim/pack/plugins/start/ale
-# Autocomplete
-curl --L https://github.com/neoclide/coc.nvim/archive/release.tar.gz \
-    | tar xzfv - -C ~/.vim/pack/plugins/start/ # Requires node.js
-# Rust linter
-# git clone https://github.com/rust-lang/rust.vim ~/.vim/pack/plugins/start/rust.vim
+# venv dir
+mkdir -p ~/.venvs
+
+# vim 8
+#sudo add-apt-repository ppa:jonathonf/vim -y
+#sudo apt-get install vim
+#mkdir -p ~/.vim/pack/plugins/start
+#git clone https://github.com/w0rp/ale.git ~/.vim/pack/plugins/start/ale
+#git clone https://github.com/rust-lang/rust.vim ~/.vim/pack/plugins/start/rust.vim
+
+# neovim
+mkdir -p ~/.config/nvim
+
+python3.7 -m venv ~/.venvs/nvim37
+. ~/.venvs/nvim37/bin/activate
+pip install pynvim
+deactivate
+
+python2.7 -m virtualenv ~/.venvs/nvim27
+. ~/.venvs/nvim27/bin/activate
+pip install pynvim
+deactivate
+
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # link to the dot files
 curdir=`pwd`
@@ -32,15 +55,10 @@ ln -sfn "$curdir"/vim8/vimrc .vimrc
 ln -sfn "$curdir"/tmux.conf .tmux.conf
 ln -sfn "$curdir"/bash_aliases .bash_aliases # ensure that .bashrc loads this
 ln -sfn "$curdir"/bashrc .bashrc
+ln -sfn "$curdir"/neovim/init.vim .config/nvim/init.vim
+ln -sfn "$curdir"/neovim/coc-settings.json .config/nvim/coc-settings.json
 cd "$curdir"
 
 # configure git
 git config --global user.name "Bren Moushall"
 git config --global user.email "bmoush@gmail.com"
-git config --global push.default simple
-
-# install Python3.7
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt install python3.7
-sudo apt install python3.7-venv
-sudo apt install python3.7-dev
