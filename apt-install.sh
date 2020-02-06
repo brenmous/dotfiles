@@ -1,8 +1,10 @@
 #!/bin/bash
+set -euxo pipefail
+
 
 # apt
 sudo apt-get update -y
-sudo add-apt-repository ppa:neovim-ppa/stable -y
+sudo apt-get upgrade -y
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 
 sudo apt-get install -y \
@@ -14,13 +16,19 @@ sudo apt-get install -y \
     python3.7-dev \
     python3-pip
 
-python3.7 -m pip install pip -y
+python3.7 -m pip install pip
 pip install virtualenv
 
+# Update to latest nvim image
+curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -o /tmp/nvim.appimage
+sudo mv /tmp/nvim.appimage /usr/local/bin/nvim
+chmod u+x /usr/local/bin/nvim
+
 # Need to add node.js for coc.nvim
-curl -L node-install.now.sh -o /tmp/install-node.sh 
-chmod u+rw /tmp/install-node.sh
+curl -L install-node.now.sh -o /tmp/install-node.sh 
+chmod u+rwx /tmp/install-node.sh
 sudo /tmp/install-node.sh -y
+rm /tmp/install-node.sh
 
 # venv dir
 mkdir -p ~/.venvs
