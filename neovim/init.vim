@@ -6,9 +6,7 @@ let g:python3_host_prog=$HOME.'/.venvs/nvim37/bin/python'
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jiangmiao/auto-pairs'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-Plug 'lifepillar/vim-solarized8'
-Plug 'morhetz/gruvbox'
+Plug 'brenmous/vim-colors-lessthan'
 call plug#end()
 
 " coc.nvim
@@ -147,18 +145,18 @@ set shiftwidth=4
 set softtabstop=4
 
 " colors
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-endif
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
 
-colorscheme gruvbox
-"hi ColorColumn ctermbg=0 guibg=lightgrey
+colorscheme lessthan
+
 set colorcolumn=72,100
-"set hlsearch
-"hi Search ctermbg=DarkYellow ctermfg=White
 
 set number
+
+set cursorline
+autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1c1c1c
+autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
 
 syntax on
