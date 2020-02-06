@@ -10,9 +10,10 @@ fi
 
 # User specific aliases and functions
 
-# Activate _git_ps1
+# Prompt
 . /etc/bash_completion.d/git-prompt
 export PS1='\[\033[0;32m\]\[\033[0m\033[1;32m\]\u:\[\033[0;35m\]\w\[\033[0;35m\]$(__git_ps1)\n\[\033[0;32m\]\[\033[0m\033[0;32m\] \$\[\033[0m\033[0;37m\] '
+force_color_prompt=yes
 
 export PATH=$PATH:'/usr/local/bin'
 
