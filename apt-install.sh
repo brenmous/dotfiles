@@ -70,3 +70,10 @@ cd "$curdir"
 # configure git
 git config --global user.name "Bren Moushall"
 git config --global user.email "bmoush@gmail.com"
+
+# pull notes
+chmod u+rx scripts/note
+chmod u+rx scripts/notesync
+cd ~
+git clone git@github.com:brenmous/notes
+cd "$curdir"
