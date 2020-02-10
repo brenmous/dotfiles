@@ -1,4 +1,4 @@
-" nvim python hosts
+"s nvim python hosts
 let g:python_host_prog=$HOME.'/.venvs/nvim27/bin/python'
 let g:python3_host_prog=$HOME.'/.venvs/nvim37/bin/python'
 
@@ -6,7 +6,7 @@ let g:python3_host_prog=$HOME.'/.venvs/nvim37/bin/python'
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jiangmiao/auto-pairs'
-Plug 'brenmous/vim-colors-lessthan'
+Plug 'morhetz/gruvbox'
 call plug#end()
 
 " coc.nvim
@@ -149,14 +149,15 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
-colorscheme lessthan
+"colorscheme lessthan
+colorscheme gruvbox
 
 set colorcolumn=72,100
 
 set number
 
 set cursorline
-autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1c1c1c
-autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
+autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1d1d1d
+autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=237 guifg=NONE guibg=#3c3836
 
 syntax on
