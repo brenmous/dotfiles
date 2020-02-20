@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 echo -e '\n----\n' >> $HOME/notes/notes.txt
-date >> $HOME/notes/notes.txt
+date +"%d-%m-%Y %T %Z" >> $HOME/notes/notes.txt
 if [[ $# -ne 0 ]]; then
   echo $@ >> $HOME/notes/notes.txt
 fi

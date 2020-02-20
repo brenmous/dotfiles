@@ -141,8 +141,8 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " my binds
 " insert timestamp with F5
-nnoremap <F5> "=strftime("%c")<CR>P
-inoremap <F5> <C-R>=strftime("%c")<CR>
+nnoremap <F5> "=strftime("%d-%m-%Y %T %Z")<CR>P
+inoremap <F5> <C-R>=strftime("%d-%m-%Y %T %Z")<CR>
 
 " tabs
 set expandtab
