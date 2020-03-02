@@ -5,7 +5,6 @@ let g:python3_host_prog=$HOME.'/.venvs/nvim37/bin/python'
 " plugins
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'jiangmiao/auto-pairs'
 Plug 'morhetz/gruvbox'
 call plug#end()
 
