@@ -156,7 +156,7 @@ set termguicolors
 "colorscheme lessthan
 colorscheme gruvbox
 
-set colorcolumn=72,100
+set colorcolumn=73,101
 
 set number
 
