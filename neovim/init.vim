@@ -10,7 +10,6 @@ Plug 'Shougo/deoplete.nvim', {'do': 'UpdateRemotePlugins'}
 Plug 'zchee/deoplete-jedi'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 Plug 'sbdchd/neoformat'
 Plug 'neomake/neomake'
@@ -23,6 +22,7 @@ set nofoldenable
 " neomake
 " let g:neomake_python_enabled_makers = ['pylint', 'mypy']
 let g:neomake_python_enabled_makers = ['mypy']
+call neomake#configure#automake('n')
 
 function! NextError()                                                                  
   try                                                                                     
@@ -37,7 +37,8 @@ nnoremap <leader>E :lprev<cr>
 
 " jedi
 let g:jedi#completeions_enabled = 0
-let g:jedi#use_splits_not_buffers="right"
+let g:jedi#use_tabs_not_buffers = 1
+let g:jedi#show_call_signatures = "2"
 
 "deoplete
 let g:deoplete#enable_at_startup = 1
@@ -46,11 +47,10 @@ let g:deoplete#enable_at_startup = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 set splitbelow
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr><CR> pumvisible() ? "\<C-Y>" : "<CR>"
 
 " airline
-let g:airline_theme='molokai'
-
-
+let g:airline_theme='gruvbox'
 
 " my binds
 " insert timestamp with F5
@@ -68,13 +68,23 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
 colorscheme gruvbox
+set background=light
 
 set colorcolumn=73,101
 
 set number
 
-set cursorline
-autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1d1d1d
-autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=237 guifg=NONE guibg=#3c3836
+autocmd InsertEnter * set cul
+autocmd InsertLeave * set nocul
+
+" Cursorline color
+" Gruvbox light
+autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=223 guifg=NONE guibg=#ebdbb2
+" Gruvbox Dark
+" autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=223 guifg=NONE guibg=#ebdbb2
+
+" Cursor
+" highlight Cursor guifg=white guibg=black
+autocmd ColorScheme * set guicursor=
 
 syntax on
