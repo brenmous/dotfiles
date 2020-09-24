@@ -22,7 +22,7 @@ function virtualenv_info(){
     else
         venv=''
     fi
-    [[ -n "$venv" ]] && echo "($venv)"
+    [[ -n "$venv" ]] && echo "{$venv}"
 }
 
 # Green + pink PS1 with git prompt
