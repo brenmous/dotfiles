@@ -12,13 +12,24 @@ fi
 
 # Prompt
 . /etc/bash_completion.d/git-prompt
+VIRTUAL_ENV_DISABLE_PROMPT=1
 force_color_prompt=yes
+
+## Venv function
+function virtualenv_info(){ 
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        venv="${VIRTUAL_ENV##*/}"
+    else
+        venv=''
+    fi
+    [[ -n "$venv" ]] && echo "($venv)"
+}
 
 # Green + pink PS1 with git prompt
 # export PS1='\[\033[0;32m\]\[\033[0m\033[1;32m\]\u:\[\033[0;35m\]\w\[\033[0;35m\]$(__git_ps1)\n\[\033[0;32m\]\[\033[0m\033[0;32m\] \$\[\033[0m\033[0;37m\] '
 
 # Pink + blue PS1 with git prompt + clock
-export PS1="\[\033[38;5;132m\]\u:\[$(tput sgr0)\]\[\033[38;5;26m\]\w\[$(tput sgr0)\]\[\033[38;5;26m\]\$(__git_ps1)\[$(tput sgr0)\]\n\[$(tput sgr0)\]\[\033[38;5;132m\][\t]\[$(tput sgr0)\] \[$(tput sgr0)\]\[\033[38;5;132m\]\\$\[$(tput sgr0)\] \[$(tput sgr0)\]"
+export PS1="\[\033[38;5;132m\]\u:\[$(tput sgr0)\]\[\033[38;5;26m\]\w\[$(tput sgr0)\]\[\033[38;5;26m\]\$(__git_ps1)\[$(tput sgr0)\] \[\033[38;5;26m\]\$(virtualenv_info)\[$(tput sgr0)\]\n\[$(tput sgr0)\]\[\033[38;5;132m\][\t]\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;132m\]\\$\[$(tput sgr0)\] \[$(tput sgr0)\]"
 
 
 export PATH=$PATH:'/usr/local/bin'
