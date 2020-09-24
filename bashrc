@@ -12,10 +12,18 @@ fi
 
 # Prompt
 . /etc/bash_completion.d/git-prompt
-export PS1='\[\033[0;32m\]\[\033[0m\033[1;32m\]\u:\[\033[0;35m\]\w\[\033[0;35m\]$(__git_ps1)\n\[\033[0;32m\]\[\033[0m\033[0;32m\] \$\[\033[0m\033[0;37m\] '
 force_color_prompt=yes
 
+# Green + pink PS1 with git prompt
+# export PS1='\[\033[0;32m\]\[\033[0m\033[1;32m\]\u:\[\033[0;35m\]\w\[\033[0;35m\]$(__git_ps1)\n\[\033[0;32m\]\[\033[0m\033[0;32m\] \$\[\033[0m\033[0;37m\] '
+
+# Pink + blue PS1 with git prompt + clock
+export PS1="\[\033[38;5;132m\]\u:\[$(tput sgr0)\]\[\033[38;5;26m\]\w\[$(tput sgr0)\]\[\033[38;5;26m\]\$(__git_ps1)\[$(tput sgr0)\]\n\[$(tput sgr0)\]\[\033[38;5;132m\][\t]\[$(tput sgr0)\] \[$(tput sgr0)\]\[\033[38;5;132m\]\\$\[$(tput sgr0)\] \[$(tput sgr0)\]"
+
+
 export PATH=$PATH:'/usr/local/bin'
+
+export TERM=xterm-256color
 
 # Editor preference
 export VISUAL=nvim
@@ -39,3 +47,8 @@ export C_INCLUDE_PATH=/usr/include/gdal
 
 # UncoverML dev vars
 # export UNCOVERML_SRC=$HOME/uncover-ml
+
+export PATH=$PATH:/usr/bin:/usr/local/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib:/usr/local/lib
+# Add GMT to path
+export PATH=/usr/local/gmt/bin:$PATH
