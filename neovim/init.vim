@@ -68,7 +68,7 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
 colorscheme gruvbox
-set background=light
+set background=dark
 
 set colorcolumn=73,101
 
@@ -78,13 +78,9 @@ autocmd InsertEnter * set cul
 autocmd InsertLeave * set nocul
 
 " Cursorline color
+" Gruvbox dark
+autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=237 guifg=NONE guibg=#3c3836
 " Gruvbox light
-autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=223 guifg=NONE guibg=#ebdbb2
-" Gruvbox Dark
 " autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=223 guifg=NONE guibg=#ebdbb2
-
-" Cursor
-" highlight Cursor guifg=white guibg=black
-autocmd ColorScheme * set guicursor=
 
 syntax on
