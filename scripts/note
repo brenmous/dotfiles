@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 
-echo -e '\n----\n' >> $HOME/notes/notes.txt
-date +"%d-%m-%Y %T %Z" >> $HOME/notes/notes.txt
+echo -e '\n----\n' >> $HOME/.notes/notes.txt
+date +"%d-%m-%Y %T %Z" >> $HOME/.notes/notes.txt
 if [[ $# -ne 0 ]]; then
-  echo $@ >> $HOME/notes/notes.txt
+  echo $@ >> $HOME/.notes/notes.txt
 fi
-nvim + $HOME/notes/notes.txt
+nvim + $HOME/.notes/notes.txt

@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-cd $HOME/notes
+cd $HOME/.notes
 git pull origin master
 git add notes.txt
 git commit -m "`date`"

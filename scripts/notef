@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 if [[ $# -ne 0 ]]; then
-    nvim +/"$@" $HOME/notes/notes.txt
+    nvim +/"$@" $HOME/.notes/notes.txt
 else
-    nvim + $HOME/notes/notes.txt
+    nvim + $HOME/.notes/notes.txt
 fi

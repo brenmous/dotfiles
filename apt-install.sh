@@ -23,21 +23,8 @@ curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 sudo mv /tmp/nvim.appimage /usr/local/bin/nvim
 chmod u+x /usr/local/bin/nvim
 
-# Need to add node.js for coc.nvim
-curl -L install-node.now.sh -o /tmp/install-node.sh 
-chmod u+rwx /tmp/install-node.sh
-sudo /tmp/install-node.sh -y
-rm /tmp/install-node.sh
-
 # venv dir
 mkdir -p ~/.venvs
-
-# vim 8
-#sudo add-apt-repository ppa:jonathonf/vim -y
-#sudo apt-get install vim
-#mkdir -p ~/.vim/pack/plugins/start
-#git clone https://github.com/w0rp/ale.git ~/.vim/pack/plugins/start/ale
-#git clone https://github.com/rust-lang/rust.vim ~/.vim/pack/plugins/start/rust.vim
 
 # neovim
 mkdir -p ~/.config/nvim
@@ -75,5 +62,5 @@ git config --global user.email "bmoush@gmail.com"
 chmod u+rx scripts/note
 chmod u+rx scripts/notesync
 cd ~
-git clone git@github.com:brenmous/notes
+git clone git@github.com:brenmous/notes .notes
 cd "$curdir"
