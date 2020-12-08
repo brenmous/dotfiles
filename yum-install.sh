@@ -1,6 +1,6 @@
 #!/bin/bash
 # Tested on CentOS 7
-set -euxo pipefail 
+set -euo pipefail 
 
 sudo yum -y install epel-release
 sudo yum -y update
@@ -11,13 +11,14 @@ sudo yum -y install \
     python3 \
     python-pip
 
-sudo pip3 install -U pip
-sudo pip install -U pip
-pip install virtualenv
+sudo python3 -m pip install -U pip
+sudo python -m pip install -U pip
+python -m pip instal virtualenv
+sudo python -m pip install -U virtualenv
 
 # Need snap for neovim
 sudo systemctl enable --now snapd.socket
-sudo ln -s /var/lib/snapd/snap /snap
+sudo ln -sfn /var/lib/snapd/snap /snap
 sudo snap install nvim --classic
 # Update to latest image
 curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -o /tmp/nvim.appimage
@@ -31,13 +32,16 @@ mkdir -p ~/.venvs
 mkdir -p ~/.config/nvim
 
 # neovim venvs
-python3 -m venv ~/.venvs/nvim36
-. ~/.venvs/nvim36/bin/activate
+python3 -m venv ~/.venvs/nvim3
+# Turn off -u because there's an unset $1 in activate script for same raisin
+set +u
+. ~/.venvs/nvim3/bin/activate
 pip install pynvim
 deactivate
+set -u
 
-python2 -m virtualenv ~/.venvs/nvim27
-. ~/.venvs/nvim27/bin/activate
+python2 -m virtualenv ~/.venvs/nvim2
+. ~/.venvs/nvim2/bin/activate
 pip install pynvim
 deactivate
 

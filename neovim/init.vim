@@ -1,6 +1,6 @@
 "s nvim python hosts
-let g:python_host_prog=$HOME.'/.venvs/nvim27/bin/python'
-let g:python3_host_prog=$HOME.'/.venvs/nvim37/bin/python'
+let g:python_host_prog=$HOME.'/.venvs/nvim2/bin/python'
+let g:python3_host_prog=$HOME.'/.venvs/nvim3/bin/python'
 
 " plugins
 call plug#begin('~/.local/share/nvim/plugged')

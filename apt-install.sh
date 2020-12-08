@@ -1,6 +1,6 @@
 #!/bin/bash
 # Tested on Ubuntu 18.04
-set -euxo pipefail
+set -euo pipefail
 
 # apt
 sudo apt-get update -y
@@ -30,13 +30,13 @@ mkdir -p ~/.venvs
 # neovim
 mkdir -p ~/.config/nvim
 
-python3.7 -m venv ~/.venvs/nvim37
-. ~/.venvs/nvim37/bin/activate
+python3.7 -m venv ~/.venvs/nvim3
+. ~/.venvs/nvim3/bin/activate
 pip install pynvim
 deactivate
 
-python2.7 -m virtualenv ~/.venvs/nvim27
-. ~/.venvs/nvim27/bin/activate
+python2.7 -m virtualenv ~/.venvs/nvim2
+. ~/.venvs/nvim2/bin/activate
 pip install pynvim
 deactivate
 
