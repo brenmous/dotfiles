@@ -59,4 +59,4 @@ git config --global user.name "Bren Moushall"
 git config --global user.email "bmoush@gmail.com"
 git config --global push.default simple
 git config --global color.ui auto
-. /etc/bash_completion.d/git
+. /etc/bash_completion.d/git-prompt
