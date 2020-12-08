@@ -1,4 +1,5 @@
 #!/bin/bash
+# Tested on Ubuntu 18.04
 set -euxo pipefail
 
 # apt
@@ -43,9 +44,8 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # link to the dot files
-curdir=`pwd`
+curdir=$(pwd)
 cd ~
-ln -sfn "$curdir"/vim8/vimrc .vimrc
 ln -sfn "$curdir"/tmux.conf .tmux.conf
 ln -sfn "$curdir"/bash_aliases .bash_aliases # ensure that .bashrc loads this
 ln -sfn "$curdir"/bashrc .bashrc
@@ -57,10 +57,6 @@ cd "$curdir"
 # configure git
 git config --global user.name "Bren Moushall"
 git config --global user.email "bmoush@gmail.com"
-
-# pull notes
-chmod u+rx scripts/note
-chmod u+rx scripts/notesync
-cd ~
-git clone git@github.com:brenmous/notes .notes
-cd "$curdir"
+git config --global push.default simple
+git config --global color.ui auto
+. /etc/bash_completion.d/git

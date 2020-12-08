@@ -1,25 +1,59 @@
-curdir=`pwd`
 #!/bin/bash
+# Tested on CentOS 7
+set -euxo pipefail 
+
 sudo yum -y install epel-release
 sudo yum -y update
-sudo yum -y install tmux
-sudo yum -y install python-pip
-sudo yum -y install zip
-sudo yum -y install unzip
+sudo yum -y install \
+    tmux \
+    git \
+    snapd \
+    python3 \
+    python-pip
 
-# Rust
-#curl https://sh.rustup.rs -sSf | sh
-#source $HOME/.cargo/env
-#rustup update
-#sudo yum -y install openssl-devel
-#sudo yum -y install cmake
+sudo pip3 install -U pip
+sudo pip install -U pip
+pip install virtualenv
 
-# install terraform
-sudo curl -L https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip \
-        -o /usr/tmp/terraform.zip
-sudo unzip /usr/tmp/terraform -d /usr/bin
-sudo rm /usr/tmp/terraform.zip
+# Need snap for neovim
+sudo systemctl enable --now snapd.socket
+sudo ln -s /var/lib/snapd/snap /snap
+sudo snap install nvim --classic
+# Update to latest image
+curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -o /tmp/nvim.appimage
+sudo mv /tmp/nvim.appimage /usr/local/bin/nvim
+chmod u+x /usr/local/bin/nvim
 
+# venv dir
+mkdir -p ~/.venvs
+
+# neovim 
+mkdir -p ~/.config/nvim
+
+# neovim venvs
+python3 -m venv ~/.venvs/nvim36
+. ~/.venvs/nvim36/bin/activate
+pip install pynvim
+deactivate
+
+python2 -m virtualenv ~/.venvs/nvim27
+. ~/.venvs/nvim27/bin/activate
+pip install pynvim
+deactivate
+
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# link to dotfiles
+curdir=$(pwd)
+cd ~
+ln -sfn "$curdir"/tmux.conf .tmux.conf
+ln -sfn "$curdir"/bash_aliases .bash_aliases # ensure that .bashrc loads this
+ln -sfn "$curdir"/bashrc .bashrc
+ln -sfn "$curdir"/neovim/init.vim .config/nvim/init.vim
+ln -sfn "$curdir"/neovim/coc-settings.json .config/nvim/coc-settings.json
+ln -sfn "$curdir"/flake8 .config/flake8
+cd "$curdir"
 
 # configure git
 git config --global user.name "Bren Moushall"
@@ -27,23 +61,3 @@ git config --global user.email "bmoush@gmail.com"
 git config --global push.default simple
 git config --global color.ui auto
 . /etc/bash_completion.d/git
-
-# VIM
-sudo yum -y install ncurses-devel
-cd /usr/tmp
-git clone https://github.com/vim/vim
-cd vim
-make
-make install
-cd $curdir
-mkdir -p ~/.vim/pack/plugins/start
-# Plugins
-git clone https://github.com/w0rp/ale.git ~/.vim/pack/plugins/start/ale
-#git clone https://github.com/rust-lang/rust.vim ~/.vim/pack/plugins/start/rust.vim
-
-# link to the dot files
-ln -nfs "$curdir"/vim8/vimrc ~/.vimrc
-ln -nfs "$curdir"/tmux.conf ~/.tmux.conf
-ln -nfs "$curdir"/bash_aliases ~/.bash_aliases # ensure that .bashrc loads this
-ln -nfs "$curdir"/bashrc ~/.bashrc
-
