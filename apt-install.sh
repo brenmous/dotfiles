@@ -50,7 +50,6 @@ ln -sfn "$curdir"/tmux.conf .tmux.conf
 ln -sfn "$curdir"/bash_aliases .bash_aliases # ensure that .bashrc loads this
 ln -sfn "$curdir"/bashrc .bashrc
 ln -sfn "$curdir"/neovim/init.vim .config/nvim/init.vim
-ln -sfn "$curdir"/neovim/coc-settings.json .config/nvim/coc-settings.json
 ln -sfn "$curdir"/flake8 .config/flake8
 cd "$curdir"
 
