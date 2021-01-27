@@ -88,7 +88,7 @@ inoremap <F5> <C-R>=strftime("%d-%m-%Y %T %Z")<CR>
 set expandtab
 set shiftwidth=4
 set softtabstop=4
-autocmd BufRead,BufNewFile *.htm,*.html, *.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile *.htm,*.html,*.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 " colors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
