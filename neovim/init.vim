@@ -63,11 +63,10 @@ let g:ctrlp_custom_ignore = {
 
 let g:ctrlp_working_path_mode = 'r'
 
-nmap <leader>p :CtrlP<cr>
-
-nmap <leader>bb :CtrlPBuffer<cr>
-nmap <leader>bm :CtrlPMixed<cr>
-nmap <leader>bs :CtrlPMRU<cr>
+nmap <leader>pf :CtrlP<cr>
+nmap <leader>pb :CtrlPBuffer<cr>
+nmap <leader>pa :CtrlPMixed<cr>
+nmap <leader>pr :CtrlPMRU<cr>
 
 " my binds
 nmap <leader>h :noh<cr>
