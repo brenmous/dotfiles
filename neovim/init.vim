@@ -14,6 +14,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'sbdchd/neoformat'
 Plug 'neomake/neomake'
 Plug 'tmhedberg/SimpylFold'
+Plug 'ctrlpvim/ctrlp.vim'
 call plug#end()
 
 " folding
@@ -24,13 +25,13 @@ set nofoldenable
 let g:neomake_python_enabled_makers = ['mypy']
 call neomake#configure#automake('n')
 
-function! NextError()                                                                  
-  try                                                                                     
-    lnext                                                                                 
-  catch                                                                                   
-    try | lfirst | catch | endtry                                                         
-  endtry                                                                                  
-endfunction                                                                               
+function! NextError()
+  try
+    lnext
+  catch
+      try | lfirst | catch | endtry
+  endtry
+endfunction
 
 nnoremap <leader>e :call NextError()<cr>
 nnoremap <leader>E :lprev<cr>
@@ -47,12 +48,39 @@ let g:deoplete#enable_at_startup = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 set splitbelow
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <expr><CR> pumvisible() ? "\<C-Y>" : "<CR>"
+inoremap <expr><cr> pumvisible() ? "\<C-Y>" : "<CR>"
 
 " airline
 let g:airline_theme='gruvbox'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+" ctrlp
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
+
+let g:ctrlp_working_path_mode = 'r'
+
+nmap <leader>p :CtrlP<cr>
+
+nmap <leader>bb :CtrlPBuffer<cr>
+nmap <leader>bm :CtrlPMixed<cr>
+nmap <leader>bs :CtrlPMRU<cr>
 
 " my binds
+nmap <leader>h :noh<cr>
+
+" buffers
+"set hidden
+"nmap <leader>T :enew<cr>
+"nmap <leader>[ :bnext<cr>
+"nmap <leader>] :bnext<cr>
+"nmap <leader>Q :bp <BAR> bd #<cr>
+"nmap <leader>tl :ls<cr>
+
+
 " insert timestamp with F5
 nnoremap <F5> "=strftime("%d-%m-%Y %T %Z")<CR>P
 inoremap <F5> <C-R>=strftime("%d-%m-%Y %T %Z")<CR>
@@ -61,6 +89,7 @@ inoremap <F5> <C-R>=strftime("%d-%m-%Y %T %Z")<CR>
 set expandtab
 set shiftwidth=4
 set softtabstop=4
+autocmd BufRead,BufNewFile *.htm,*.html, *.css setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 " colors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"

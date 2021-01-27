@@ -7,3 +7,4 @@ alias umlvenv='. $HOME/.venvs/uml37/bin/activate && export UNCOVERML_SRC=/home/b
 alias dcvenv='. $HOME/.venvs/detcap37/bin/activate'
 alias hsvenv='. $HOME/venvs/hiperseis/bin/activate'
 alias mtwvenv='. $HOME/.venvs/mtw/bin/activate'
+alias pbvenv='. $HOME/.venvs/pbvenv/bin/activate'
