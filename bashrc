@@ -62,7 +62,16 @@ export C_INCLUDE_PATH=/usr/include/gdal
 # UncoverML dev vars
 # export UNCOVERML_SRC=$HOME/uncover-ml
 
-export PATH=$PATH:/usr/bin:/usr/local/bin
+
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib:/usr/local/lib
+
+export PATH=$PATH:/usr/bin:/usr/local/bin
 # Add GMT to path
 export PATH=/usr/local/gmt/bin:$PATH
+
+
+# SEISCOMP 3
+export SEISCOMP_ROOT=/opt/seiscomp3
+export PATH=$PATH:$SEISCOMP_ROOT/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SEISCOMP_ROOT/lib
+export PYTHONPATH=$PYTHONPATH:$SEISCOMP_ROOT/lib/python

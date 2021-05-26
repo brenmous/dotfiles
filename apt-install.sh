@@ -33,6 +33,7 @@ mkdir -p ~/.config/nvim
 python3.7 -m venv ~/.venvs/nvim3
 . ~/.venvs/nvim3/bin/activate
 pip install pynvim
+pip install jedi
 deactivate
 
 python2.7 -m virtualenv ~/.venvs/nvim2

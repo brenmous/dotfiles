@@ -6,8 +6,14 @@ let g:python3_host_prog=$HOME.'/.venvs/nvim3/bin/python'
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'davidhalter/jedi-vim'
-Plug 'Shougo/deoplete.nvim', {'do': 'UpdateRemotePlugins'}
-Plug 'zchee/deoplete-jedi'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', {'do': 'UpdateRemotePlugins'}
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdcommenter'
@@ -15,15 +21,15 @@ Plug 'sbdchd/neoformat'
 Plug 'neomake/neomake'
 Plug 'tmhedberg/SimpylFold'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'sbdchd/neoformat'
 call plug#end()
 
 " folding
 set nofoldenable
 
 " neomake
-" let g:neomake_python_enabled_makers = ['pylint', 'mypy']
-let g:neomake_python_enabled_makers = ['mypy']
-call neomake#configure#automake('n')
+let g:neomake_python_enabled_makers = ['flake8', 'mypy']
+call neomake#configure#automake('nwri', 500)
 
 function! NextError()
   try
@@ -38,7 +44,7 @@ nnoremap <leader>E :lprev<cr>
 
 " jedi
 let g:jedi#completeions_enabled = 0
-let g:jedi#use_tabs_not_buffers = 1
+let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#show_call_signatures = "2"
 
 "deoplete
@@ -79,6 +85,8 @@ nmap <leader>h :noh<cr>
 "nmap <leader>Q :bp <BAR> bd #<cr>
 "nmap <leader>tl :ls<cr>
 
+nmap <leader>w <C-W><w>
+nmap <leader>W <C-W><W>
 
 " insert timestamp with F5
 nnoremap <F5> "=strftime("%d-%m-%Y %T %Z")<CR>P
