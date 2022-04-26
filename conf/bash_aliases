@@ -1,0 +1,3 @@
+alias note='$MY_DOTFILES/note_taking/note'
+alias notesync='$MY_DOTFILES/note_taking/notesync'
+alias notef='$MY_DOTFILES/note_taking/notef'

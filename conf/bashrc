@@ -1,0 +1,52 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/skel/.bashrc ]; then
+	. /etc/skel/.bashrc
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+
+# Prompt
+. /etc/bash_completion.d/git-prompt
+VIRTUAL_ENV_DISABLE_PROMPT=1
+force_color_prompt=yes
+
+## Venv function
+function virtualenv_info(){ 
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        venv="${VIRTUAL_ENV##*/}"
+    else
+        venv=''
+    fi
+    [[ -n "$venv" ]] && echo "{$venv}"
+}
+
+# Pink + blue PS1 with git prompt + clock, dark bg
+export PS1="\[\033[38;5;132m\]\u:\[$(tput sgr0)\]\[\033[38;5;31m\]\w\[$(tput sgr0)\]\[\033[38;5;31m\]\$(__git_ps1)\[$(tput sgr0)\] \[\033[38;5;31m\]\$(virtualenv_info)\[$(tput sgr0)\]\n\[$(tput sgr0)\]\[\033[38;5;132m\][\t]\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;132m\]\\$\[$(tput sgr0)\] \[$(tput sgr0)\]"
+
+export PATH=$PATH:/usr/local/bin:/usr/bin
+
+export TERM=xterm-256color
+
+# Editor preference
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib:/usr/local/lib
+
+# AWS
+export AWS_PROFILE=test
+export AWS_DEFAULT_REGION=ap-southeast-2
+
+# Click autocompletion
+eval "$(_PYCMK_COMPLETE=bash_source pycmk)"
+eval "$(_NEAC_COMPLETE=bash_source neac)"
+
+# Conf variables
+export MY_DOTFILES=~/.dotfiles
+export MY_NOTES=~/.notes
+export MY_NOTES_REPO="git@github.com:brenmous/notes.git"
