@@ -1,4 +1,6 @@
---plugins
+-- plugins
+---- copied from https://github.com/Allaman/nvim
+---- bootstraps packer.nvim
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -28,22 +30,36 @@ packer.startup(function(use)
 end)
 
 --plugin config
+---- themer - lsp and treesitter compatible colorschemes
+---- use :SCROLLCOLOR to preview the available themes
 require("themer").setup({
     colorscheme="nord",
     styles={
         comment = {fg = "#707D97"},
-        string = {fg = "#89A571"}
+        string = {fg = "#89A571"},
+        ["function"] = {fg = "#88C0D0"}
     }
 })
 
+---- lsp setup
+---- available servers and configurations:
+---- https://github.com/neovim/nvim-lspconfig/blob/044388b0d437c2f266d69231421e99b1598cc39c/doc/server_configurations.md
 require('lspconfig').pyright.setup({})
+require('lspconfig').cssls.setup({})
+require('lspconfig').eslint.setup({})
+require('lspconfig').html.setup({})
+require('lspconfig').terraformls.setup({})
+require('lspconfig').jsonls.setup({})
 
+---- ctrlp
 vim.g.ctrlp_custom_ignore = 'git'
 
+---- lualine
 require("lualine").setup({})
 
+---- treesitter
 require('nvim-treesitter.configs').setup({
-    ensure_installed = { 'python', 'html', 'javascript', 'hcl' },
+    ensure_installed = { 'python', 'html', 'javascript', 'hcl', 'css' },
     sync_install = false,
     highlight = {
         enable = true
