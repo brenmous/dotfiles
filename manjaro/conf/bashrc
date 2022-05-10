@@ -45,6 +45,21 @@ esac
 
 use_color=true
 
+# Python venv stuff
+VIRTUAL_ENV_DISABLE_PROMPT=1
+
+function virtualenv_info(){ 
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        venv="${VIRTUAL_ENV##*/}"
+    else
+        venv=''
+    fi
+    [[ -n "$venv" ]] && echo "{$venv}"
+}
+
+# Git PS1
+. /usr/share/git/git-prompt.sh
+
 # Set colorful PS1 only on colorful terminals.
 # dircolors --print-database uses its own built-in database
 # instead of using /etc/DIR_COLORS.  Try to use the external file
@@ -70,9 +85,9 @@ if ${use_color} ; then
 	fi
 
 	if [[ ${EUID} == 0 ]] ; then
-		PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
+               PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '       
 	else
-		PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
+               PS1="\[\033[38;5;132m\]\u:\[$(tput sgr0)\]\[\033[38;5;31m\]\w\[$(tput sgr0)\]\[\033[38;5;31m\]\$(__git_ps1)\[$(tput sgr0)\] \[\033[38;5;31m\]\$(virtualenv_info)\[$(tput sgr0)\]\n\[$(tput sgr0)\]\[\033[38;5;132m\][\t]\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;132m\]\\$\[$(tput sgr0)\] \[$(tput sgr0)\]"
 	fi
 
 	alias ls='ls --color=auto'
@@ -135,6 +150,9 @@ ex ()
     echo "'$1' is not a valid file"
   fi
 }
+
+# Git completion
+. /usr/share/bash-completion/completions/git
 
 # Conf variables
 export MY_DOTFILES=~/.dotfiles
