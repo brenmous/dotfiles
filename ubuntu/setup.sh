@@ -6,7 +6,7 @@ echo "Updating ubuntu"
 sudo apt update && sudo apt upgrade
 
 echo "Installing nvim nightly"
-./install-nvim.sh
+../common/install-nvim.sh
 
 echo "Updating pip and setuptools"
 python -m pip install -U pip setuptools
@@ -30,4 +30,4 @@ git config --global push.default simple
 git config --global color.ui auto
 
 echo "Pull notes"
-./note_taking/pull-notes.sh
+../common/note_taking/pull-notes.sh
