@@ -140,3 +140,6 @@ ex ()
 export MY_DOTFILES=~/.dotfiles
 export MY_NOTES=~/.notes
 export MY_NOTES_REPO="git@github.com:brenmous/notes.git"
+
+export VISUAL=nvim
+export EDITOR=nvim
