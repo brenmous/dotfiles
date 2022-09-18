@@ -87,7 +87,7 @@ if ${use_color} ; then
 	if [[ ${EUID} == 0 ]] ; then
                PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '       
 	else
-               PS1="\[\033[38;5;132m\]\u:\[$(tput sgr0)\]\[\033[38;5;31m\]\w\[$(tput sgr0)\]\[\033[38;5;31m\]\$(__git_ps1)\[$(tput sgr0)\] \[\033[38;5;31m\]\$(virtualenv_info)\[$(tput sgr0)\]\n\[$(tput sgr0)\]\[\033[38;5;132m\][\t]\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;132m\]\\$\[$(tput sgr0)\] \[$(tput sgr0)\]"
+               PS1="\[\033[38;5;132m\]\u@\h:\[$(tput sgr0)\]\[\033[38;5;31m\]\w\[$(tput sgr0)\]\[\033[38;5;31m\]\$(__git_ps1)\[$(tput sgr0)\] \[\033[38;5;31m\]\$(virtualenv_info)\[$(tput sgr0)\]\n\[$(tput sgr0)\]\[\033[38;5;132m\][\t]\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;132m\]\\$\[$(tput sgr0)\] \[$(tput sgr0)\]"
 	fi
 
 	alias ls='ls --color=auto'
@@ -161,3 +161,12 @@ export MY_NOTES_REPO="git@github.com:brenmous/notes.git"
 
 export VISUAL=nvim
 export EDITOR=nvim
+
+# Library path
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib
+
+# Git subrepo
+. ~/src/git-subrepo/.rc
+
+. ~/.bash_aliases
+eval "$(_PYCMK_COMPLETE=bash_source pycmk)"
