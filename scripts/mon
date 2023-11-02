@@ -1,0 +1,147 @@
+#! /usr/bin/python
+import json
+import os
+import subprocess
+import sys
+import time
+from typing import List
+from dataclasses import dataclass
+
+
+@dataclass
+class Reading:
+    name: str
+    value: float | str
+    unit: str
+    value_fmt: str = ''
+
+    def __str__(self):
+        try:
+            return f"{self.name: <16}: {self.value:{self.value_fmt}} {self.unit}"
+        except Exception as e:
+            raise ValueError(f"Error formatting reading: {self.name}") from e
+
+
+@dataclass
+class Package:
+    name: str
+    readings: List[Reading]
+
+    def __str__(self):
+        return '\n'.join(
+            [f"{self.name} {'='*(32-len(self.name)-1)}"]
+            + [str(reading) for reading in self.readings])
+
+
+def parse_core_speeds():
+    avoid = ('Speed (MHz)', 'min/max', 'avg', 'cores')
+    speeds = []
+    inxi = json.loads(subprocess.check_output([
+            "inxi", "-C", "--output", "json", "--output-file", "print"]).decode('utf-8'))
+    for k, v in inxi[0]['000#1#0#CPU'][1].items():
+        if k.split('#')[-1] not in avoid:
+            speeds.append(float(v)/1000)
+    _min = min(speeds)
+    _max = max(speeds)
+    boosting = sum(1 for speed in speeds if speed >= 4.7)
+    return _min, _max, boosting
+
+
+def parse_cpu(sensors):
+    cpu = sensors['nct6798-isa-0290']
+    fan = cpu['fan2']['fan2_input']
+    temp = cpu['PECI Agent 0 Calibration']['temp7_input']
+    vcore = float(subprocess.check_output(
+        'echo "scale=2; $(sudo rdmsr 0x198 -u --bitfield 47:32)/8192" | bc',
+        shell=True
+    ).decode('utf-8').strip())
+    governor = subprocess.check_output(
+        ['cat', '/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor']
+    ).decode('utf-8').strip()
+    min_speed, max_speed, boosting = parse_core_speeds()
+
+    return Package(
+        name='CPU',
+        readings=[
+            Reading(name='Temp', value=temp, unit='C', value_fmt='.0f'),
+            Reading(name='Fan speed', value=fan, unit='RPM', value_fmt='.0f'),
+            Reading(name='Vcore', value=vcore, unit='V', value_fmt='.2f'),
+            Reading(name='Min clock', value=min_speed, unit='GHz', value_fmt='.2f'),
+            Reading(name='Max clock', value=max_speed, unit='GHz', value_fmt='.2f'),
+            Reading(name='Boosting', value=boosting, unit='cores'),
+            Reading(name='Governor', value=governor, unit='')
+        ]
+    )
+
+
+def parse_mobo(sensors):
+    mobo = sensors['nct6798-isa-0290']
+    temp = mobo['SYSTIN']['temp1_input']
+    fan = mobo['fan1']['fan1_input']
+    return Package(
+        name='MOBO',
+        readings=[
+            Reading(name='Temp', value=temp, unit='C', value_fmt='.0f'),
+            Reading(name='Fan speed', value=fan, unit='RPM', value_fmt='.0f')
+        ]
+    )
+
+
+def parse_ssd(sensors):
+    ssd1 = sensors['nvme-pci-0400']
+    temp1 = ssd1['Composite']['temp1_input']
+    ssd2 = sensors['nvme-pci-7400']
+    temp2 = ssd2['Composite']['temp1_input']
+    return Package(
+        name='SSD',
+        readings=[
+            Reading(name='Main temp', value=temp1, unit='C', value_fmt='.0f'),
+            Reading(name='Aux temp', value=temp2, unit='C', value_fmt='.0f')
+        ]
+    )
+
+
+def parse_gpu(sensors):
+    gpu = sensors['amdgpu-pci-0300']
+    edge = gpu['edge']['temp1_input']
+    junction = gpu['junction']['temp2_input']
+    mem = gpu['mem']['temp3_input']
+    fan = gpu['fan1']['fan1_input']
+    voltage = gpu['vddgfx']['in0_input']
+    power = gpu['PPT']['power1_average']
+    return Package(
+        name='GPU',
+        readings=[
+            Reading(name='Edge temp', value=edge, unit='C', value_fmt='.0f'),
+            Reading(name='Junction temp', value=junction, unit='C', value_fmt='.0f'),
+            Reading(name='Memory temp', value=mem, unit='C', value_fmt='.0f'),
+            Reading(name='Fan speed', value=fan, unit='RPM', value_fmt='.0f'),
+            Reading(name='Voltage', value=voltage, unit='V', value_fmt='.2f'),
+            Reading(name='Power', value=power, unit='W', value_fmt='.0f')
+        ]
+    )
+
+
+def parse_all(sensors):
+    return [parse_cpu(sensors), parse_gpu(sensors), parse_mobo(sensors), parse_ssd(sensors)]
+
+
+def print_packages(packages):
+    print("\n\n".join([str(pkg) for pkg in packages]))
+
+
+def poll(rate):
+    while True:
+        sensors = json.loads(subprocess.check_output(["sensors", "-j"]).decode("utf-8"))
+        packages = parse_all(sensors)
+        os.system('clear')
+        print_packages(packages)
+        time.sleep(rate)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        rate = 1.
+    else:
+        rate = float(sys.argv[1])
+    poll(rate)
