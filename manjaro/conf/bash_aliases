@@ -1,3 +1,6 @@
 alias note='$MY_DOTFILES/common/note_taking/note'
 alias notesync='$MY_DOTFILES/common/note_taking/notesync'
 alias notef='$MY_DOTFILES/common/note_taking/notef'
+alias awsc='firefox https://d-9767107370.awsapps.com/start#/'
+alias tfl='eval $(aws configure export-credentials --format env)'
+source ~/.quickenvs/aliases
