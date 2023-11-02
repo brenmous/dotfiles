@@ -62,7 +62,15 @@ pylsp_settings = {
 }
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local servers = { pylsp=pylsp_settings, cssls={}, eslint={}, html={}, terraformls={}, jsonls={} }
+local servers = { 
+    pylsp=pylsp_settings,
+    cssls={},
+    eslint={},
+    html={},
+    terraformls={},
+    jsonls={},
+    rust_analyzer={} 
+}
 for lsp, settings in pairs(servers) do
     lspconfig[lsp].setup {
         settings = settings,
