@@ -1,0 +1,24 @@
+I run ubuntu as a VM through Hyper-V. To get it working nicely
+(tiling wm, enhanced session/rdp) we do the following:
+
+Follow these instructions here:
+https://www.nakivo.com/blog/install-ubuntu-20-04-on-hyper-v-with-enhanced-session/
+
+Which boils down to:
+- create the VM
+- disable secure boot for the VM
+- run the ubuntu installation
+- ensure 'Log in automatically' is *not* selected
+- Run the xrdp install and config script from:
+    https://raw.githubusercontent.com/Hinara/linux-vm-tools/ubuntu20-04/ubuntu/22.04/install.sh 
+- Enable 'Allow enhanced session mode' in Hyper-V
+- In powershell, execute Set-VM -VMName <your_vm_name>  -EnhancedSessionTransportType HvSocket
+
+Now when starting the VM via Hyper-V, display options should appear followed
+by an RDP login. You may have to click the Enhanced session icon (2nd from right)
+to launch the enhanced session.
+
+To get i3, it's easiest to install regolith: https://regolith-desktop.com/docs/using-regolith/install/
+
+To ensure that regolith is started when connecting via rdp,
+create '~/.xsession' and add 'regolith-session'.
