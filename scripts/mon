@@ -48,9 +48,8 @@ def parse_core_speeds():
 
 
 def parse_cpu(sensors):
-    cpu = sensors['nct6798-isa-0290']
-    fan = cpu['fan2']['fan2_input']
-    temp = cpu['PECI Agent 0 Calibration']['temp7_input']
+    temp = sensors['coretemp-isa-0000']['Package id 0']['temp1_input']
+    fan = sensors['nct6798-isa-0290']['fan2']['fan2_input']
     vcore = float(subprocess.check_output(
         'echo "scale=2; $(sudo rdmsr 0x198 -u --bitfield 47:32)/8192" | bc',
         shell=True
