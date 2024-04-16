@@ -13,7 +13,6 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 	vim.api.nvim_command("packadd packer.nvim")
 end
 
-
 local packer = require("packer")
 
 packer.startup(function(use)
@@ -25,6 +24,8 @@ packer.startup(function(use)
         use("themercorp/themer.lua")
 	use("nvim-lualine/lualine.nvim")
 	use("ctrlpvim/ctrlp.vim")
+	use("williamboman/mason.nvim")
+        use("williamboman/mason-lspconfig.nvim")
         use("neovim/nvim-lspconfig")
 	use("ggandor/leap.nvim")
         use("hrsh7th/nvim-cmp")
@@ -33,30 +34,28 @@ packer.startup(function(use)
         use("L3MON4D3/LuaSnip")
 end)
 
---plugin config
----- themer - lsp and treesitter compatible colorschemes
---
----- use :SCROLLCOLOR to preview the available themes
-require("themer").setup({
-    colorscheme="jellybeans"
-    ---styles={
-    ---    comment = {fg = "#707D97"},
-    ---    string = {fg = "#89A571"},
-    ---    ["function"] = {fg = "#88C0D0"}
-    ---}
-})
+-- set python interpreter
+vim.g.python3_host_prog = '/home/bren/.quickenvs/neovim/bin/python'
 
----- lsp setup
----- available servers and configurations:
+
+
+-- setup mason
+---- Note: make sure this happens before lsp setup
+require("mason").setup()
+require("mason-lspconfig").setup()
+
+-- lsp
+---- Available servers and configurations:
 ---- https://github.com/neovim/nvim-lspconfig/blob/044388b0d437c2f266d69231421e99b1598cc39c/doc/server_configurations.md
---require('lspconfig').pyright.setup({})
+---- When not using Mason we need to install the LSP binaries manually.
+---- Using Mason, we can run :Mason.
 local lspconfig = require('lspconfig')
 pylsp_settings = {
     pylsp = {
         plugins = {
             pycodestyle = {
                 maxLineLength = 100
-            }
+            },
         }
     }
 }
@@ -78,10 +77,10 @@ for lsp, settings in pairs(servers) do
     }
 end
 
----- luasnip
+-- luasnip
 local luasnip = require('luasnip')
 
----- nvim-cmp
+-- nvim-cmp
 local cmp = require 'cmp'
 cmp.setup {
   snippet = {
@@ -126,10 +125,10 @@ cmp.setup {
 ---- ctrlp
 vim.g.ctrlp_custom_ignore = 'git'
 
----- lualine
+-- lualine
 require("lualine").setup({})
 
----- treesitter
+-- treesitter
 require('nvim-treesitter.configs').setup({
     ensure_installed = { 'python', 'html', 'javascript', 'hcl', 'css' },
     sync_install = false,
@@ -138,10 +137,10 @@ require('nvim-treesitter.configs').setup({
     }
 })
 
----- leap
+-- leap
 require('leap').set_default_keymaps()
 
---mappings
+-- mappings
 ---- leader
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.g.mapleader = " "
@@ -159,21 +158,11 @@ vim.keymap.set("n", "<F5>", "=strftime('%Y-%m-%d %H:%M:%S')<CR>P", { noremap = t
 vim.keymap.set("i", "<F5>", "<C-R>=strftime('%Y-%m-%d %H:%M:%S')<CR>", { noremap = true })
 
 ---- lsp
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<leader>e', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>E', vim.diagnostic.goto_next)
-
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
-    -- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
@@ -190,21 +179,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-
-
----- lsp
---vim.keymap.set("n", "<leader>E", "<cmd>lua vim.diagnostic.goto_next()<CR>", {noremap=true, silent=true})
---vim.keymap.set("n", "<leader>e", "<cmd>lua vim.diagnostic.goto_prev()<CR>", {noremap=true, silent=true})
---vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", {noremap=true, silent=true})
---vim.keymap.set("n", "<leader>gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", {noremap=true, silent=true})
---vim.keymap.set("n", "<leader>gD", "<cmd>lua vim.lsp.buf.definition()<CR>", {noremap=true, silent=true})
---vim.keymap.set("n", "<leader>gh", "<cmd>lua vim.lsp.buf.hover()<CR>", {noremap=true, silent=true})
---vim.keymap.set("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", {noremap=true, silent=true})
---vim.keymap.set("n", "<leader>qq", ":cclose<cr>", {noremap=true, silent=true})
-
-
---options
----- indentation
+-- indentation options
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
@@ -216,10 +191,14 @@ vim.api.nvim_create_autocmd(
     }
 )
 
----- line numbers
+-- line numbers
 vim.opt.number = true
 
----- colors
+-- colors
+---- use :SCROLLCOLOR to preview the available themes
+require("themer").setup({
+    colorscheme="jellybeans"
+})
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.colorcolumn = "73,101"
