@@ -19,7 +19,8 @@ sudo apt install git \
     npm \
     gnupg \
     ca-certificates \
-    python3-pip
+    python3-pip \
+    pipx
 
 echo "Installing nvim nightly"
 ../common/install-nvim.sh
@@ -28,10 +29,13 @@ echo "Updating pip and setuptools"
 python3 -m pip install -U pip setuptools
 
 echo "Installing quickenv"
-pip install git+https://github.com/brenmous/quickenv
+pipx install git+https://github.com/brenmous/quickenv
 
 echo "Installing pyright"
-pip install pyright
+pipx install pyright
+
+echo "Installing pyneac"
+pipx install git+https://bitbucket.org/geoscienceaustralia/pyneac
 
 echo "Installing vscode language servers"
 sudo npm i -g vscode-langservers-extracted
@@ -75,5 +79,6 @@ git config --global user.email "bmoush@gmail.com"
 git config --global push.default simple
 git config --global color.ui auto
 
+# below requires keys to be setup
 echo "Pull notes"
 ../common/note_taking/pull-notes.sh
