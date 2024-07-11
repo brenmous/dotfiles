@@ -1,14 +1,18 @@
 #! /usr/bin/env python
 
+from pathlib import Path
 import subprocess
 
 def main():
     git_status = subprocess.run(
         ["git", "status", "--porcelain"], capture_output=True, check=True
     ).stdout.decode("utf-8").split('\n')
+    root = subprocess.run(
+        ["git", "rev-parse", "--show-toplevel"], capture_output=True, check=True
+    ).stdout.decode("utf-8").strip()
     for line in git_status:
         if line.startswith(' M'):
-            path = line.split()[-1]
+            path = Path(root) / line.split()[-1]
             subprocess.run(["git", "diff", path])
             add = input("Add this file? [y|N]")
             if add.lower() == 'y':
