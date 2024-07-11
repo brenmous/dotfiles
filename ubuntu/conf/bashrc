@@ -69,7 +69,7 @@ function awsprofile_info() {
 }
 
 # Git PS1
-. /usr/share/git/git-prompt.sh
+. /etc/bash_completion.d/git-prompt
 
 # Set colorful PS1 only on colorful terminals.
 # dircolors --print-database uses its own built-in database
@@ -175,15 +175,12 @@ export EDITOR=nvim
 
 # Library path
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib:/opt/seiscomp/lib
-export PATH=$PATH:/home/bren/.local/bin:/opt/rocm/bin:/opt/seiscomp/bin:/home/bren/.dotfiles/scripts
+export PATH=$PATH:/home/bren/.local/bin:/opt/rocm/bin:/opt/seiscomp/bin:/home/bren/.dotfiles/scripts:/usr/local/go/bin
 export PYTHONPATH=$PYTHONPATH:/opt/seiscomp/lib/python
-
-# Git subrepo
-. ~/src/git-subrepo/.rc
 
 . ~/.bash_aliases
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. "$HOME/.cargo/env"
+. /home/bren/src/git-subrepo/.rc

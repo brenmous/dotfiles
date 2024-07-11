@@ -3,4 +3,6 @@ alias notesync='$MY_DOTFILES/common/note_taking/notesync'
 alias notef='$MY_DOTFILES/common/note_taking/notef'
 alias awsc='firefox https://d-9767107370.awsapps.com/start#/'
 alias tfl='eval $(aws configure export-credentials --format env)'
+alias pipl='AWS_PROFILE=nonprod aws codeartifact login --tool pip --domain mca --domain-owner 380589001349 --repository mca-pypi'
+alias twinel='AWS_PROFILE=prod aws codeartifact login --tool twine --domain mca --domain-owner 380589001349 --repository mca-pypi'
 source ~/.quickenvs/aliases
