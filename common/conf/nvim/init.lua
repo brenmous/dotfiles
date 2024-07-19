@@ -32,12 +32,17 @@ packer.startup(function(use)
         use("hrsh7th/cmp-nvim-lsp")
         use("saadparwaiz1/cmp_luasnip")
         use("L3MON4D3/LuaSnip")
+	use("supermaven-inc/supermaven-nvim")
+	use("onsails/lspkind.nvim")
 end)
+
+require("supermaven-nvim").setup({
+    use_free_version = true,
+    disable_inline_completion = true
+})
 
 -- set python interpreter
 vim.g.python3_host_prog = '/home/bren/.quickenvs/neovim/bin/python'
-
-
 
 -- setup mason
 ---- Note: make sure this happens before lsp setup
@@ -80,6 +85,9 @@ end
 -- luasnip
 local luasnip = require('luasnip')
 
+-- lspkind
+local lspkind = require('lspkind')
+
 -- nvim-cmp
 local cmp = require 'cmp'
 cmp.setup {
@@ -119,7 +127,15 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'supermaven' },
   },
+  formatting = {
+      format = lspkind.cmp_format({
+        mode = "symbol",
+        maxwidth = 50,
+        symbol_map = { Supermaven = "" }
+    })
+  }
 }
 
 ---- ctrlp
