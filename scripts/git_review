@@ -1,22 +1,45 @@
 #! /usr/bin/env python
-
+from typing import Optional
+import sys
 from pathlib import Path
 import subprocess
 
-def main():
-    git_status = subprocess.run(
-        ["git", "status", "--porcelain"], capture_output=True, check=True
-    ).stdout.decode("utf-8").split('\n')
-    root = subprocess.run(
-        ["git", "rev-parse", "--show-toplevel"], capture_output=True, check=True
-    ).stdout.decode("utf-8").strip()
+
+def main(path: Optional[Path] = None):
+    git_status = (
+        subprocess.run(
+            ["git", "status", "--porcelain"] + ([path] if path else []),
+            capture_output=True,
+            check=True
+        )
+        .stdout.decode("utf-8")
+        .split("\n")
+    )
+    root = (
+        subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"],
+            capture_output=True,
+            check=True
+        )
+        .stdout.decode("utf-8")
+        .strip()
+    )
     for line in git_status:
-        if line.startswith(' M'):
+        if line.startswith(" M"):
             path = Path(root) / line.split()[-1]
             subprocess.run(["git", "diff", path])
             add = input("Add this file? [y|N]")
-            if add.lower() == 'y':
+            if add.lower() == "y":
                 subprocess.run(["git", "add", path])
 
+
 if __name__ == "__main__":
-    main()
+    p: Optional[Path]
+    if len(sys.argv) > 1:
+        p = Path(sys.argv[1])
+        if not p.exists():
+            print(f"Path '{p}' does not exist")
+            sys.exit(1)
+    else:
+        p = None
+    main(p)
