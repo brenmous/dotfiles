@@ -28,9 +28,11 @@ def main(path: Optional[Path] = None):
         if line.startswith(" M"):
             path = Path(root) / line.split()[-1]
             subprocess.run(["git", "diff", path])
-            add = input("Add this file? [y|N]")
-            if add.lower() == "y":
+            add = input("[a]dd, [r]estore or [i]gnore: ")
+            if add.lower() == "a":
                 subprocess.run(["git", "add", path])
+            elif add.lower() == "r":
+                subprocess.run(["git", "restore", path])
 
 
 if __name__ == "__main__":
