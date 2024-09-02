@@ -49,38 +49,35 @@ vim.g.python3_host_prog = '/home/bren/.quickenvs/neovim/bin/python'
 require("mason").setup()
 require("mason-lspconfig").setup()
 
--- lsp
----- Available servers and configurations:
----- https://github.com/neovim/nvim-lspconfig/blob/044388b0d437c2f266d69231421e99b1598cc39c/doc/server_configurations.md
----- When not using Mason we need to install the LSP binaries manually.
----- Using Mason, we can run :Mason.
-local lspconfig = require('lspconfig')
 pylsp_settings = {
     pylsp = {
         plugins = {
             pycodestyle = {
                 maxLineLength = 100
             },
+            rope_rename = {
+                enabled = false
+            },
+            jedi_rename = {
+                enabled = false
+            }
         }
     }
 }
-
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local servers = { 
-    pylsp=pylsp_settings,
-    cssls={},
-    eslint={},
-    html={},
-    terraformls={},
-    jsonls={},
-    rust_analyzer={} 
+
+require("mason-lspconfig").setup_handlers {
+    function (server_name)
+        require("lspconfig")[server_name].setup {
+            capabilities = capabilities
+        }
+    end,
+    ["pylsp"] = function()
+        require("lspconfig")["pylsp"].setup {
+            settings = pylsp_settings,
+        }
+    end
 }
-for lsp, settings in pairs(servers) do
-    lspconfig[lsp].setup {
-        settings = settings,
-        capabilities = capabilities
-    }
-end
 
 -- luasnip
 local luasnip = require('luasnip')
@@ -132,7 +129,7 @@ cmp.setup {
   formatting = {
       format = lspkind.cmp_format({
         mode = "symbol",
-        maxwidth = 50,
+        maxwidth = 110,
         symbol_map = { Supermaven = "" }
     })
   }
