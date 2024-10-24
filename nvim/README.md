@@ -14,7 +14,7 @@ Basic settings:
 - use darkmode
 - add colour columns at 73, 101
 - set space as leader key
-- <leader>h to turn off highlighting (`:noh`)
+- leader + h to turn off highlighting (`:noh`)
 - set up indentation
     - 4 spaces, except 2 for html, css, js and HCL
 - enable line numbers
