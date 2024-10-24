@@ -1,8 +1,0 @@
-#! /usr/bin/env bash
-
-echo -e '\n----\n' >> $MY_NOTES/notes.txt
-date +"%d-%m-%Y %T %Z" >> $MY_NOTES/notes.txt
-if [[ $# -ne 0 ]]; then
-  echo $@ >> $MY_NOTES/notes.txt
-fi
-nvim + $MY_NOTES/notes.txt
