@@ -76,15 +76,13 @@ return {
                   vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
                   vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, opts)
                   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-                  vim.keymap.set('n', '<leader>f', function()
-                      vim.lsp.buf.format { async = true }
-                  end, opts)
-                vim.api.nvim_create_autocmd("BufWritePre", {
+                  vim.keymap.set('n', '<leader>f', "<cmd>lua vim.lsp.buf.format { async=true }<cr>", opts)
+                  vim.api.nvim_create_autocmd('BufWritePre', {
                     callback = function()
-                        vim.lsp.buf.format { async = false, id = event.data.client_id }
+                      vim.lsp.buf.format { async = false, buffer = event.buf }
                     end,
-                })
-                end,
+                  })
+                  end,
             })
 
             local cmp = require("cmp")
