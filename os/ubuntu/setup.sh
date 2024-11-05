@@ -18,11 +18,22 @@ sudo apt install git \
     gnupg \
     ca-certificates \
     python3-pip \
-    pipx \
     tmux \
     libfuse2t64 \
     golang \
-    python3-dev
+    python3-dev \
+    amazon-ecr-credential-helper \
+    mysql-server \
+    libmysqlclient-dev
+
+echo "Installing awscli"
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip"
+unzip /tmp/awscliv2.zip -d /tmp
+sudo ./tmp/aws/install
+
+echo "Installing SSM plugin"
+curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "/tmp/session-manager-plugin.deb"
+sudo dpkg -i /tmp/session-manager-plugin.deb
 
 echo "Installing uv"
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -50,7 +61,6 @@ sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin dock
 sudo usermod -aG docker "$USER"
 sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
-sudo apt install amazon-ecr-credential-helper
 
 echo "Configuring git"
 git config --global user.name "Brenainn Moushall"
