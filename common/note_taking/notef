@@ -1,7 +1,0 @@
-#! /usr/bin/env bash
-
-if [[ $# -ne 0 ]]; then
-    nvim +/"$@" $MY_NOTES/notes.txt
-else
-    nvim + $MY_NOTES/notes.txt
-fi
