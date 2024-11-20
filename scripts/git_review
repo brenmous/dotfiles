@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 from typing import Optional
 import sys
+import os
 from pathlib import Path
 import subprocess
 
@@ -10,29 +11,49 @@ def main(path: Optional[Path] = None):
         subprocess.run(
             ["git", "status", "--porcelain"] + ([path] if path else []),
             capture_output=True,
-            check=True
+            check=True,
         )
         .stdout.decode("utf-8")
         .split("\n")
     )
     root = (
         subprocess.run(
-            ["git", "rev-parse", "--show-toplevel"],
-            capture_output=True,
-            check=True
+            ["git", "rev-parse", "--show-toplevel"], capture_output=True, check=True
         )
         .stdout.decode("utf-8")
         .strip()
     )
+    to_stash = []
     for line in git_status:
         if line.startswith(" M"):
             path = Path(root) / line.split()[-1]
             subprocess.run(["git", "diff", path])
-            add = input("[a]dd, [r]estore or [i]gnore: ")
-            if add.lower() == "a":
+            action = input("[a]dd, [r]estore, [s]tash or [i]gnore: ")
+            if action.lower() == "a":
                 subprocess.run(["git", "add", path])
-            elif add.lower() == "r":
+            elif action.lower() == "r":
                 subprocess.run(["git", "restore", path])
+            elif action.lower() == "s":
+                to_stash.append(path)
+        elif line.startswith("??"):
+            path = Path(root) / line.split()[-1]
+            print(f"untracked file: {path}")
+            action = input("[a]dd, [d]elete, [s]tash or [i]gnore: ")
+            if action.lower() == "a":
+                subprocess.run(["git", "add", path])
+            elif action.lower() == "d":
+                path.unlink()
+            elif action.lower() == "s":
+                to_stash.append(path)
+    if to_stash:
+        stash_message = input("stash message: ")
+        if not stash_message:
+            stash_message = "stashed by grev"
+        subprocess.run(
+            ["git", "stash", "push", "-m", stash_message]
+            + to_stash
+            + ["--include-untracked"]
+        )
 
 
 if __name__ == "__main__":
