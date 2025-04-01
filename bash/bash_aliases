@@ -1,5 +1,6 @@
 alias prod='export AWS_PROFILE=prod'
 alias nonprod='export AWS_PROFILE=nonprod'
+alias oddish='export AWS_PROFILE=oddish'
 alias awsc='firefox https://d-9767107370.awsapps.com/start#/'
 alias tfl='eval $(aws configure export-credentials --format env)'
 alias gitc='git rev-parse --short HEAD'

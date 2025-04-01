@@ -125,7 +125,9 @@ return {
         build = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup {
-                ensure_installed = "all",
+                -- ensure_installed = "all", -- make your laptop loud as fuck with this one simple trick!
+                -- seriously, work laptop can't get through the install, and treesitter starts from scratch if it fails
+                ensure_installed = {"python", "lua", "markdown", "html", "css", "javascript", "bash"},
                 sync_install = false,
                 highlight = { enable = true },
                 indent = { enable = true } 
