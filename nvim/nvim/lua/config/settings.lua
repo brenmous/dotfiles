@@ -26,4 +26,5 @@ vim.api.nvim_create_autocmd({
     }
 )
 
-
+vim.opt.updatetime = 250
+vim.cmd [[autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})]]

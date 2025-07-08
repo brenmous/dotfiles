@@ -1,3 +1,10 @@
+function merge(t1, t2)
+    for k, v in pairs(t2) do
+        t1[k] = v
+    end
+    return t1
+end
+
 return {
     {
         "themercorp/themer.lua",
@@ -8,48 +15,31 @@ return {
         }
     },
     {
-        "neovim/nvim-lspconfig",
+        "mason-org/mason-lspconfig.nvim",
+        opts = {ensure_installed={}},
         dependencies = {
-            "williamboman/mason.nvim",
-            "WhoIsSethDaniel/mason-tool-installer.nvim",
-            "williamboman/mason-lspconfig.nvim",
-            "hrsh7th/cmp-nvim-lsp"
+            {"mason-org/mason.nvim", opts={}},
+            "neovim/nvim-lspconfig"
         },
-        config = function()
-            require("mason").setup()
-
-            -- You can use `:Mason` to use the Mason UI to search
-            -- and install plugins. To script the installation,
-            -- use `mason-tool-installer` as below.
-            require("mason-tool-installer").setup {
-                ensure_installed = {
-                    "bashls",
-                    "shfmt",
-                    "shellcheck",
-                    "denols",
-                    "cssls",
-                    "hclfmt",
-                    "html",
-                    "jsonls",
-                    "prettier",
-                    "pyright",
-                    "ruff",
-                    "terraform-ls"
-                },
-                auto_update = true,
+    },
+    {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        opts = {
+            ensure_installed = {
+                "bashls",
+                "shfmt",
+                "shellcheck",
+                "denols",
+                "cssls",
+                "hclfmt",
+                "html",
+                "jsonls",
+                "prettier",
+                "pyright",
+                "ruff",
+                "terraform-ls"
             }
-
-            -- Autoconfigure LSPs installed by Mason
-            local lspconfig = require("lspconfig")
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            require("mason-lspconfig").setup_handlers {
-                function(server_name)
-                    lspconfig[server_name].setup {
-                        capabilities = capabilities
-                    }
-                end
-            }
-        end
+        }
     },
     {
         "supermaven-inc/supermaven-nvim",
@@ -133,5 +123,5 @@ return {
                 indent = { enable = true } 
             }
         end
-    }
+    },
 }
